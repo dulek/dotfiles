@@ -51,6 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+RPROMPT=""
 export PATH="/sbin:/usr/sbin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
