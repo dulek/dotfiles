@@ -82,3 +82,15 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias openrc="source ~/devstack/openrc admin admin"
+alias git-review="tsocks git review"
+alias unstack="~/devstack/unstack.sh"
+alias stack="FORCE=yes bash ~/devstack/stack.sh"
+alias rejoin_stack="~/devstack/rejoin-stack.sh"
+
+# Intel Proxy
+export http_proxy=http://proxy-chain.intel.com:911
+export https_proxy=https://proxy-chain.intel.com:911
+export ftp_proxy=ftp://proxy-chain.intel.com:911
+export no_proxy=10.0.2.15,localhost,127.0.0.1,example.com,192.168.100.2,10.10.0.1,10.0.2.4
+
