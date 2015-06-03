@@ -78,7 +78,12 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias openrc="source ~/devstack/openrc admin admin"
+function openrc {
+    pushd ~/devstack >/dev/null
+    eval $(bash -c ". openrc $1 $2;env|sed -n '/OS_/ { s/^/export /;p}'")
+    popd >/dev/null
+}
+
 alias git-review="tsocks git review"
 alias unstack="~/devstack/unstack.sh"
 alias stack="FORCE=yes bash ~/devstack/stack.sh"
