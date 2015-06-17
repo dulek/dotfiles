@@ -1,0 +1,11 @@
+# Hexchat internals...
+addon_checksum.conf
+addon_sysinfo.conf
+chanopt.conf
+colors.conf
+ignore.conf
+notify.conf
+pevents.conf
+scrollback
+sound.conf
+
