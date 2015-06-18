@@ -84,7 +84,6 @@ function openrc {
     popd >/dev/null
 }
 
-alias git-review="tsocks git review"
 alias unstack="~/devstack/unstack.sh"
 alias stack="FORCE=yes bash ~/devstack/stack.sh"
 alias rejoin_stack="~/devstack/rejoin-stack.sh"
