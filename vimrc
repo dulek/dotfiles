@@ -7,3 +7,5 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
+hi Visual term=None cterm=None ctermbg=darkred ctermfg=black
