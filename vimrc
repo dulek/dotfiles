@@ -9,3 +9,6 @@ set shiftwidth=4
 set expandtab
 
 hi Visual term=None cterm=None ctermbg=darkred ctermfg=black
+
+autocmd FileType tex setlocal fo+=t
+autocmd FileType tex setlocal tw=79
