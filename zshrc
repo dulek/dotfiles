@@ -54,7 +54,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 RPROMPT=""
-export PATH="/sbin:/usr/sbin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin"
+export PATH="/sbin:/usr/sbin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/home/mdulko/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -78,3 +78,42 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias unstack="~/devstack/unstack.sh"
+alias stack="FORCE=yes bash ~/devstack/stack.sh"
+alias rejoin_stack="~/devstack/rejoin-stack.sh"
+alias kos="kubectl --namespace openstack"
+alias kss="kubectl --namespace kube-system"
+
+autoload bashcompinit
+bashcompinit
+source <(kubectl completion zsh)
+
+# OpenStack-Helm functions
+function hio {
+    NAMESPACE="${2:-openstack}"
+    if [ -f "/home/mdulko/openstack/osh-overrides/$1.yaml" ]
+    then
+        echo "Found override $1.yaml"
+        helm install --name=$1 local/$1 --namespace=$NAMESPACE -f ~/openstack/osh-overrides/$1.yaml
+    else
+        helm install --name=$1 local/$1 --namespace=$NAMESPACE
+    fi
+}
+
+function huo {
+    NAMESPACE="${2:-openstack}"
+    if [ -f "/home/mdulko/openstack/osh-overrides/$1.yaml" ]
+    then
+        echo "Found override $1.yaml"
+        helm upgrade $1 local/$1 --namespace=openstack -f ~/openstack/osh-overrides/$1.yaml
+    else
+        helm upgrade $1 local/$1 --namespace=openstack
+    fi
+}
+
+function his {
+    hio $1 kube-system
+}
+
+alias hdo="helm delete --purge"
+alias hds="hdo"
