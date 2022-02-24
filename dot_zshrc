@@ -1,0 +1,136 @@
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="philips"
+
+# Uncomment the following line to use case-sensitive completion.
+CASE_SENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# tmux zsh plugin
+export ZSH_TMUX_AUTOSTART="false"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git command-not-found tmux)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+RPROMPT=""
+function cloud {
+    if [[ ! -z $OS_CLOUD ]]; then
+        echo "(${OS_CLOUD})"
+    fi
+}
+#PS1="%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[blue]%}%B%c/%b%{$reset_color%} $(git_prompt_info)%(!.#.$) "
+export PATH="/sbin:/usr/sbin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/home/mdulko/.bin:/home/mdulko/Code/go/bin:/home/mdulko/Code/scripts:/home/mdulko/.local/bin:/usr/local/go/bin"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+export EDITOR='vim'
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias unstack="~/devstack/unstack.sh"
+alias stack="FORCE=yes bash ~/devstack/stack.sh"
+alias kos="kubectl --namespace openstack"
+alias kss="kubectl --namespace kube-system"
+alias watch='watch '
+alias pastebin="curl -v -F 'code2=<-' -F 'paste=Send' http://pastebin.test.redhat.com/pastebin.php 2>&1 | grep Location"
+alias gre="git review -y"
+alias ip="ip -c"
+alias ock="oc -n openshift-kuryr"
+alias ocn="oc -n openshift-network-operator"
+alias ocm="oc -n openshift-machine-api"
+alias ocv="oc -n openshift-cluster-version"
+alias oco="oc -n openshift-ovn-kubernetes"
+alias sdn="oc -n openshift-network-operator scale deploy network-operator --replicas 0"
+alias sdv="oc -n openshift-cluster-version scale deploy cluster-version-operator --replicas 0"
+alias dockerq="docker --config ~/.docker/quay"
+alias o="openstack"
+
+autoload bashcompinit
+bashcompinit
+#source <(kubectl completion zsh 2> /dev/null)
+#source <(oc completion zsh)
+
+export CODEDIRS=(~/Code ~/Code/openstack ~/Code/go/src/github.com/openshift)
+export GOPATH=~/Code/go
+
+function cdc {
+    results=`find $CODEDIRS -maxdepth 1 -type d -name "$1"`
+    cd $results
+}
+
+_cdc () {
+    local proj
+    local projs
+    proj=${words[-1]}
+    projs=(`find $CODEDIRS -maxdepth 1 -type d -name "*${proj}*" -printf "%f\n"`)
+    _describe 'command' projs
+}
+
+compdef _cdc cdc
+
+function cdf {
+    cd "`locate "/home/mdulko/*$1" | head -n 1`"
+}
+
+#source ~/Clouds/mdulko-openrc.sh
+
+#eval "$(jump shell zsh)"

@@ -1,0 +1,25 @@
+set number
+
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set synmaxcol=200
+
+imap <C-Space> <C-x><C-o>
+imap <C-@> <C-Space>
+set completeopt-=preview
+
+hi Visual term=None cterm=None ctermbg=darkred ctermfg=black
+
+autocmd FileType tex setlocal fo+=t
+autocmd FileType tex setlocal tw=79
+
+autocmd FileType rst setlocal fo+=t
+autocmd FileType rst setlocal tw=79
+
+autocmd FileType gitcommit setlocal fo+=t
+autocmd FileType gitcommit setlocal tw=72
+
+autocmd FileType go setlocal noet ci pi sts=0 sw=4 ts=4
+set clipboard=unnamedplus
