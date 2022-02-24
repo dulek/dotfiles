@@ -1,0 +1,13 @@
+[user]
+	email = mdulko@redhat.com
+	name = Michał Dulko
+	signingkey = EB11C755
+[gitreview]
+	username = dulek
+[core]
+	excludesfile = ~/.gitignore
+	pager = less -x1,5
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
